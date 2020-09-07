@@ -1,0 +1,65 @@
+.dashboard-card {
+  min-height: 125px;
+  max-height: 125px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgb(231, 232, 236);
+  }
+
+  &:active {
+    background-color: rgb(231, 239, 246);
+
+    span {
+      color: rgb(54, 95, 200);
+    }
+  }
+}
+
+.card-green {
+  min-height: 125px;
+  max-height: 125px;
+  cursor: pointer;
+  color: #13c2c2;
+  background: #e6fffb;
+
+  &:hover {
+    background-color: #DBF2EE;
+  }
+}
+
+.card-blue {
+  min-height: 125px;
+  max-height: 125px;
+  cursor: pointer;
+  color: #1890ff;
+  background: #e6f7ff;
+
+  &:hover {
+    background-color: #DBEBF2;
+  }
+}
+
+.card-volcano {
+  min-height: 125px;
+  max-height: 125px;
+  cursor: pointer;
+  color: #fa541c;
+  background: #fff2e8;
+
+  &:hover {
+    background-color: #F2E6DC;
+  }
+}
+
+.card-magenta {
+  min-height: 125px;
+  max-height: 125px;
+  cursor: pointer;
+  color: #eb2f96;
+  background: #fff0f6;
+
+  &:hover {
+    background-color: #F2E4EA;
+  }
+}
