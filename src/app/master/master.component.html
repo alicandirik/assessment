@@ -1,0 +1,56 @@
+<nz-layout class="h-100">
+  <nz-header class="px-3">
+    <div class="row">
+      <div class="col-2">
+        <div class="text-white acd-font-size-lg">Assessment</div>
+      </div>
+
+      <div class="col-10 d-flex justify-content-end align-items-center">
+        <ul nz-menu
+            nzTheme="dark"
+            nzMode="horizontal">
+          <li nz-menu-item>
+            <a
+              nz-dropdown
+              nzTrigger="click"
+              [nzDropdownMenu]="profile">
+              <nz-avatar [nzSize]="48"
+                         [nzSrc]="'https://randomuser.me/api/portraits/men/40.jpg'"
+                         nzAlt="avatar"></nz-avatar>
+              <i class="fas fa-angle-down text-white ml-2"></i>
+            </a>
+            <nz-dropdown-menu #profile="nzDropdownMenu">
+              <ul nz-menu>
+                <li nz-menu-item
+                    class="py-3"
+                    nzDisabled>
+                  <div class="d-flex flex-row">
+                    <div class="flex-column d-flex align-items-center justify-content-center">
+                      <nz-avatar [nzSize]="48"
+                                 [nzSrc]="'https://randomuser.me/api/portraits/men/40.jpg'"
+                                 nzAlt="avatar"></nz-avatar>
+                    </div>
+
+                    <div class="flex-column ml-3">
+                      <h6 class="flex-row acd-text-primary mb-0">Ali Can Dirik</h6>
+                      <div class="flex-row">alicandirik@gmail.com</div>
+                    </div>
+                  </div>
+                </li>
+                <li nz-menu-divider></li>
+                <li nz-menu-item>Action</li>
+                <li nz-menu-item>Another Action</li>
+                <li nz-menu-divider></li>
+                <li nz-menu-item>Sign Out</li>
+              </ul>
+            </nz-dropdown-menu>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nz-header>
+
+  <nz-content>
+    <router-outlet></router-outlet>
+  </nz-content>
+</nz-layout>
