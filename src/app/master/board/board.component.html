@@ -1,0 +1,25 @@
+<div class="d-flex flex-column align-content-stretch h-100">
+
+  <div class="flex-0-1-auto">
+    <div class="d-flex">
+      <button nz-button
+              (click)="onBack()"
+              class="border-0 shadow-none bg-transparent mr-2">
+        <i class="fas fa-angle-left fa-fw fa-lg"></i>
+      </button>
+
+      <h4 class="acd-text-bold">{{ board?.name | uppercase }}</h4>
+    </div>
+
+    <nz-divider nzType="horizontal"
+                nzOrientation="right"
+                [nzText]="'Created At: ' + (board?.createdAt | date: 'dd MMM yyyy HH:mm')"></nz-divider>
+  </div>
+
+  <div class="flex-1-1-auto">
+    <ng-container *ngIf="board?.tables as tables;">
+      <app-table [tables]="tables"></app-table>
+    </ng-container>
+  </div>
+
+</div>

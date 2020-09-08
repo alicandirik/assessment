@@ -1,0 +1,86 @@
+<div class="card m-3"
+     (click)="onDetail()"
+     [ngClass]="'card-data-' + card.color">
+  <div class="card-body">
+    <div class="acd-text-bold">
+      {{ card.title }}
+    </div>
+
+    <div class="text-wrap">{{ card.comment }}</div>
+
+    <div class="text-wrap mt-3 overflow-hidden">
+      <nz-tag class="m-1"
+              *ngFor="let t of card.tag">
+        {{ t }}
+      </nz-tag>
+    </div>
+  </div>
+</div>
+
+<ng-template #modal>
+  <div class="card border-0">
+    <div class="card-body d-flex flex-wrap" [formGroup]="form">
+      <div class="flex-fill w-100">
+        <div class="acd-text-bold">Title</div>
+
+        <input nz-input
+               formControlName="title">
+      </div>
+
+      <div class="flex-fill w-100 mt-3">
+        <div class="acd-text-bold">Comment</div>
+
+        <textarea
+          nz-input
+          formControlName="comment"
+          placeholder="Enter card title for this card"
+          [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
+      </div>
+
+      <div class="flex-fill w-100 mt-3">
+        <div class="acd-text-bold">Tags</div>
+
+        <nz-tag *ngFor="let t of tags; let i = index;"
+                nzMode="closeable"
+                (nzOnClose)="removeTag(i)"
+                class="m-1">{{ t }}</nz-tag>
+
+        <nz-input-group nzCompact class="d-flex mt-2">
+          <input nz-input formControlName="tag"
+                 nzSize="small">
+
+          <button nz-button
+                  (click)="onAddTag()"
+                  nzType="primary">Add
+          </button>
+        </nz-input-group>
+      </div>
+
+      <div class="flex-fill w-100 mt-3">
+        <div class="acd-text-bold">Color</div>
+
+        <div class="d-flex flex-wrap">
+          <div class="flex-fill w-25 mt-3" *ngFor="let c of colors; let i = index;"
+               [ngClass]="i !== 0 ? 'pl-2' : 'pl-0'">
+            <div class="card border-0 color-card"
+                 (click)="onSelectColor(i)"
+                 [ngClass]="'card-' + c.name">
+              <div class="card-body p-0 d-flex justify-content-center align-items-center">
+                <i class="fas fa-check" *ngIf="c.checked"></i>
+                <span *ngIf="!c.checked">{{ c.name[0].toUpperCase() + c.name.slice(1) }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex-fill w-100 mt-3">
+        <button nz-button
+                nzType="primary"
+                nzBlock
+                [disabled]="form.get('tag').value"
+                (click)="onSave()">Save</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
