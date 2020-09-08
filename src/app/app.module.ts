@@ -11,6 +11,9 @@ import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { NgxsModule } from '@ngxs/store';
 import { environment } from '../environments/environment';
+import { DragDropRegistry } from '@angular/cdk/drag-drop';
+import { ScrollDispatcher, ViewportRuler } from '@angular/cdk/overlay';
+import { Platform } from '@angular/cdk/platform';
 
 registerLocaleData(en);
 
@@ -26,9 +29,16 @@ registerLocaleData(en);
     HttpClientModule,
     BrowserAnimationsModule,
     NgxsModule.forRoot(),
-    ...environment.plugins
+    ...environment.plugins,
   ],
-  providers: [{ provide: NZ_I18N, useValue: en_US }],
+  providers: [
+    {provide: NZ_I18N, useValue: en_US},
+    ViewportRuler,
+    Platform,
+    DragDropRegistry,
+    ScrollDispatcher
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
