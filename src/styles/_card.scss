@@ -1,4 +1,5 @@
 .dashboard-card {
+  z-index: 1;
   min-height: 125px;
   max-height: 125px;
   cursor: pointer;
@@ -16,7 +17,25 @@
   }
 }
 
+.add {
+  z-index: 1;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgb(231, 232, 236);
+  }
+
+  &:active {
+    background-color: rgb(231, 239, 246);
+
+    span {
+      color: rgb(54, 95, 200);
+    }
+  }
+}
+
 .card-green {
+  z-index: 1;
   min-height: 125px;
   max-height: 125px;
   cursor: pointer;
@@ -29,6 +48,7 @@
 }
 
 .card-blue {
+  z-index: 1;
   min-height: 125px;
   max-height: 125px;
   cursor: pointer;
@@ -41,6 +61,7 @@
 }
 
 .card-volcano {
+  z-index: 1;
   min-height: 125px;
   max-height: 125px;
   cursor: pointer;
@@ -53,6 +74,7 @@
 }
 
 .card-magenta {
+  z-index: 1;
   min-height: 125px;
   max-height: 125px;
   cursor: pointer;
@@ -61,5 +83,53 @@
 
   &:hover {
     background-color: #F2E4EA;
+  }
+}
+
+.card-data-magenta {
+  z-index: 1;
+  color: #eb2f96;
+  background: #fff0f6 !important;
+  cursor: pointer;
+  min-height: 50px;
+
+  &:hover {
+    background-color: #F2E4EA !important;
+  }
+}
+
+.card-data-green {
+  z-index: 1;
+  color: #13c2c2;
+  background: #e6fffb !important;
+  cursor: pointer;
+  min-height: 50px;
+
+  &:hover {
+    background-color: #DBF2EE !important;
+  }
+}
+
+.card-data-blue {
+  z-index: 1;
+  color: #1890ff;
+  background: #e6f7ff !important;
+  cursor: pointer;
+  min-height: 50px;
+
+  &:hover {
+    background-color: #DBEBF2 !important;
+  }
+}
+
+.card-data-volcano {
+  z-index: 1;
+  color: #fa541c;
+  background: #fff2e8 !important;
+  cursor: pointer;
+  min-height: 50px;
+
+  &:hover {
+    background-color: #F2E6DC !important;
   }
 }
