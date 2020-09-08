@@ -82,7 +82,11 @@ export class DashboardComponent implements OnInit {
   }
 
   onCreate(): void {
-    this._store.dispatch(new BoardActions.Create(this.form.getRawValue()));
+    const board: Board = {
+      ...this.form.getRawValue(),
+      tables: []
+    }
+    this._store.dispatch(new BoardActions.Create(board));
 
     const s = this._store.selectSnapshot(BoardState.selected);
 
