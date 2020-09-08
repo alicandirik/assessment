@@ -1,16 +1,16 @@
 <div class="card m-3"
      (click)="onDetail()"
-     [ngClass]="'card-data-' + card.color">
+     [ngClass]="'card-data-' + card?.color">
   <div class="card-body">
     <div class="acd-text-bold">
-      {{ card.title }}
+      {{ card?.title }}
     </div>
 
-    <div class="text-wrap">{{ card.comment }}</div>
+    <div class="text-wrap">{{ card?.comment }}</div>
 
     <div class="text-wrap mt-3 overflow-hidden">
       <nz-tag class="m-1"
-              *ngFor="let t of card.tag">
+              *ngFor="let t of card?.tag">
         {{ t }}
       </nz-tag>
     </div>
