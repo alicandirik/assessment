@@ -21,7 +21,7 @@ export class TableComponent implements OnInit {
   showOnDrag = false;
   showInput = false;
 
-  @Input() tables: Table[];
+  @Input() tables: Table[] = [];
 
   constructor(
     private _fb: FormBuilder,

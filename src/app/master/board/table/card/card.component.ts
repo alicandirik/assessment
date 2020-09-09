@@ -78,7 +78,7 @@ export class CardComponent implements OnInit, OnDestroy {
     }
 
     onDetail(): void {
-        this.form = this._createForm(this.card);
+        this.form = this.createForm(this.card);
         this.board = this._store.selectSnapshot(BoardState.selected);
         this.tags = this.card.tag;
         const color = this.colors.filter(c => c.name === this.card.color)[0];
@@ -114,7 +114,7 @@ export class CardComponent implements OnInit, OnDestroy {
     }
 
     removeTag(idx: number): void {
-        this.card.tag[idx].slice(idx);
+        this.card.tag.slice(idx);
     }
 
     onSave(): void {
@@ -137,7 +137,7 @@ export class CardComponent implements OnInit, OnDestroy {
         this._ms.closeAll();
     }
 
-    private _createForm(card: Card): FormGroup {
+    createForm(card: Card): FormGroup {
         return this._fb.group({
             title: new FormControl(card.title, Validators.required),
             color: new FormControl(card.color, Validators.required),
