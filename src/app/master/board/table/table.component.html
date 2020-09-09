@@ -6,11 +6,25 @@
       <div class="board-column d-flex align-self-start m-2 p-0" *ngFor="let t of board?.tables; let i = index;">
 
         <div class="d-flex">
-            <span class="flex-fill w-50 acd-text-bold p-3">
+          <span class="flex-fill w-75 acd-text-bold p-3"
+                (click)="onEditHeader(t)"
+                *ngIf="!t.showHeaderInput">
             {{ t.name | uppercase }}
           </span>
 
-          <div class="flex-fill w-50 p-3 text-right">
+          <div class="flex-fill w-75 m-2"
+               [formGroup]="form"
+               *ngIf="t.showHeaderInput">
+            <nz-input-group nzCompact class="d-flex">
+              <input nz-input formControlName="title">
+
+              <button nz-button
+                      (click)="saveHeader(t)"
+                      nzType="primary">Save</button>
+            </nz-input-group>
+          </div>
+
+          <div class="flex-fill w-25 p-3 text-right">
             <a nz-dropdown
                class="pl-3"
                nzTrigger="click"

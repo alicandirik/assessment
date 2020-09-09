@@ -68,7 +68,10 @@ export class TableComponent implements OnInit {
   onCreateList(): void {
     this.tables
       .forEach(
-        (table) => table.showInput = false
+        (table) => {
+          table.showInput = false;
+          table.showHeaderInput = false;
+        }
       );
 
     this.form = this._createForm();
@@ -81,7 +84,8 @@ export class TableComponent implements OnInit {
     this.tables.push({
       name: this.form.get('title').value,
       showInput: false,
-      cards: []
+      cards: [],
+      showHeaderInput: false
     });
 
     this.board.tables = this.tables;
@@ -94,8 +98,10 @@ export class TableComponent implements OnInit {
     this._ms.confirm({
       nzTitle: 'Delete List',
       nzContent: 'Confirm delete action',
+      nzOkText: 'Delete',
+      nzOkType: 'danger',
       nzOnOk: () => {
-        this.tables.splice(idx);
+        this.tables.splice(idx, 1);
         this.board.tables = this.tables;
         this._updateBoard$.next(this.board);
       }
@@ -109,8 +115,11 @@ export class TableComponent implements OnInit {
   * */
   onCreateCard(table: Table): void {
     this.form = this._createForm();
+    this.showInput = false;
     this.tables.forEach(
       (t) => {
+        t.showHeaderInput = false;
+
         if (t !== table) {
           t.showInput = false;
           return;
@@ -130,6 +139,36 @@ export class TableComponent implements OnInit {
     });
 
     table.showInput = false;
+  }
+
+
+  /*
+  *
+  * Header
+  *
+  * */
+  onEditHeader(table: Table): void {
+    table.showHeaderInput = true;
+    this.showInput = false;
+    this.tables.forEach(
+      (t) => {
+        t.showInput = false;
+        if (table !== t) {
+          t.showHeaderInput = false;
+          return;
+        }
+
+        t.showHeaderInput = true;
+      }
+    );
+    this.form = this._createForm(table.name);
+  }
+
+  saveHeader(t: Table): void {
+    t.name = this.form.get('title').value;
+    this.board.tables = this.tables;
+    this._updateBoard$.next(this.board);
+    t.showHeaderInput = false;
   }
 
   private _createForm(title?: string): FormGroup {
