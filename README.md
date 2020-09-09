@@ -1,27 +1,21 @@
 # Assessment
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.20.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.20 for assessment.
 
-## Development server
+## Dependencies
+- angular/cli@8.3.20
+- angular/cdk@8.2.1
+- fortawesome/fontawesome-free@5.14.0
+- ngxs/store@3.6.2
+- ngxs/devltools-plugin@3.6.2
+- bootstrap@4.5.2
+- ng-zorro-antd@8.5.2
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Running
 
-## Code scaffolding
+Run `npm install` after clone. Then `npm run start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Unit Test Results
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Run `ng test --code-coverage` to execute the unit tests via [Karma](https://karma-runner.github.io). Cases results can be seen through open window or coverage summary can be seen through console. To see detailed coverage report,
+go to `./coverage/assessment/` folder from project directory and open `index.html` in browser.
