@@ -4,4 +4,5 @@ export interface Table {
   name: string;
   cards?: Card[];
   showInput?: boolean;
+  showHeaderInput?: boolean;
 }
