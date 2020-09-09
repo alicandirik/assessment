@@ -1,4 +1,4 @@
-<div class="card m-3"
+<div class="card w-100"
      (click)="onDetail()"
      [ngClass]="'card-data-' + card?.color">
   <div class="card-body">
@@ -74,10 +74,25 @@
         </div>
       </div>
 
-      <div class="flex-fill w-100 mt-3">
+      <div class="flex-fill w-25 mt-4 text-right d-flex">
+        <button nz-button
+                nzType="link"
+                *ngIf="!showConfirm"
+                (click)="onDeleteCard()"
+                class="text-danger mr-3 ml-auto">
+          Delete
+        </button>
+
+        <button nz-button
+                nzType="link"
+                *ngIf="showConfirm"
+                (click)="onConfirmDelete()"
+                class="mr-3 text-danger ml-auto">
+          Confirm Action
+        </button>
+
         <button nz-button
                 nzType="primary"
-                nzBlock
                 [disabled]="form.get('tag').value"
                 (click)="onSave()">Save</button>
       </div>

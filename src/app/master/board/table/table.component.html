@@ -1,3 +1,125 @@
+<div class="board h-100">
+
+  <div class="board-wrapper pt-3 px-3 pb-0 bg-light shadow-sm border">
+
+    <div class="board-columns" cdkDropListGroup>
+      <div class="board-column d-flex align-self-start m-2 p-0" *ngFor="let t of board?.tables; let i = index;">
+
+        <div class="d-flex">
+            <span class="flex-fill w-50 acd-text-bold p-3">
+            {{ t.name | uppercase }}
+          </span>
+
+          <div class="flex-fill w-50 p-3 text-right">
+            <a nz-dropdown
+               class="pl-3"
+               nzTrigger="click"
+               nzPlacement="bottomRight"
+               [nzDropdownMenu]="actions">
+              <i class="fas acd-text-secondary fa-ellipsis-v"></i>
+            </a>
+            <nz-dropdown-menu #actions="nzDropdownMenu">
+              <ul nz-menu>
+                <li nz-menu-item
+                    class="text-danger"
+                    (click)="onDeleteList(i)">Delete List
+                </li>
+              </ul>
+            </nz-dropdown-menu>
+          </div>
+        </div>
+
+        <div class="tasks-container px-2"
+             [ngClass]="t.cards?.length > 0 ? 'pb-4' : ''"
+             cdkDropList
+             (cdkDropListEntered)="showOnDrag = false"
+             (cdkDropListExited)="showOnDrag = true"
+             [cdkDropListData]="t?.cards"
+             (cdkDropListDropped)="drop($event)">
+          <app-card class="task mx-3" *ngFor="let c of t.cards; let j = index;"
+                    [ngClass]="j > 0 ? 'mt-3' : ''"
+                    [card]="c"
+                    [cardIndex]="j"
+                    [tableIndex]="i"
+                    cdkDrag></app-card>
+
+          <div class="card m-1 border-0 bg-transparent"
+               *ngIf="(!t?.cards || t?.cards?.length === 0) && !t.showInput && showOnDrag">
+            <div class="card-body d-flex justify-content-center align-items-center">
+              <div class="acd-text-secondary">No Card</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="add mt-3 px-4 py-3 acd-text-secondary"
+             *ngIf="!t.showInput"
+             (click)="onCreateCard(t)">
+          <i class="fas fa-plus mr-2"></i>
+          Add Card
+        </div>
+
+        <div class="py-2 px-4"
+             [formGroup]="form"
+             *ngIf="t.showInput">
+          <div class="acd-text-bold">Title</div>
+
+          <label>
+            <input nz-input formControlName="title"
+                   placeholder="Enter title for card">
+          </label>
+
+          <div class="py-2 acd-text-secondary">
+            <button nz-button
+                    (click)="onAddCard(t)"
+                    [disabled]="form.invalid"
+                    nzType="primary"
+                    nzBlock>Add Card
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="board-column d-flex align-self-start m-2 p-0" [formGroup]="form">
+        <div class="card add"
+             (click)="onCreateList()"
+             *ngIf="!showInput">
+          <div class="card-body d-flex align-items-center justify-content-center acd-text-secondary">
+            <i class="fas fa-plus mr-2"></i>
+            Add List
+          </div>
+        </div>
+
+        <div class="card bg-light"
+             *ngIf="showInput">
+          <div class="card-body">
+            <div class="acd-text-primary">Title</div>
+
+            <label>
+              <textarea
+                nz-input
+                formControlName="title"
+                placeholder="Enter card title for this card"
+                [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
+            </label>
+
+            <div class="bg-light py-2 acd-text-secondary">
+              <button nz-button
+                      (click)="onAddList()"
+                      [disabled]="form.invalid"
+                      nzType="primary"
+                      nzBlock>Add List
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!--
 <div class="card bg-transparent h-100 shadow-sm">
   <div class="card-body p-0">
     <div class="table-row"
@@ -97,3 +219,4 @@
     </div>
   </div>
 </div>
+-->

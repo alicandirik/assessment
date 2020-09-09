@@ -4,6 +4,8 @@ import { Store } from '@ngxs/store';
 import { Board, Card, Table } from '../../../shared/types';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { BoardActions, BoardState } from '../../../shared/states';
+import { Subject } from 'rxjs';
+import { NzModalService } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-table',
@@ -12,34 +14,42 @@ import { BoardActions, BoardState } from '../../../shared/states';
 })
 export class TableComponent implements OnInit {
 
-  @Input() tables: Table[];
+  private _updateBoard$: Subject<Board> = new Subject<Board>();
 
   form: FormGroup;
+  board: Board;
   showOnDrag = false;
   showInput = false;
-  board: Board;
-  removeOldCard = false;
+
+  @Input() tables: Table[];
 
   constructor(
     private _fb: FormBuilder,
-    private _store: Store
+    private _store: Store,
+    private _ms: NzModalService
   ) {
   }
 
   ngOnInit() {
     this.form = this._createForm();
     this.board = this._store.selectSnapshot(BoardState.selected);
+
+    this._updateBoard$
+      .asObservable()
+      .subscribe(
+        (board) => {
+          this.tables = board.tables;
+          this._store.dispatch(new BoardActions.SetSelected(board));
+        }
+      );
   }
 
   drop(event: CdkDragDrop<Card[]>): void {
     this.showOnDrag = true;
 
     if (event.previousContainer === event.container) {
-      this.removeOldCard = false;
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-      this.removeOldCard = true;
-
       transferArrayItem(event.previousContainer.data,
         event.container.data,
         event.previousIndex,
@@ -47,8 +57,7 @@ export class TableComponent implements OnInit {
     }
 
     this.board.tables = this.tables;
-
-    this._store.dispatch(new BoardActions.SetSelected(this.board));
+    this._updateBoard$.next(this.board);
   }
 
   /*
@@ -67,6 +76,8 @@ export class TableComponent implements OnInit {
   }
 
   onAddList(): void {
+    this.showOnDrag = true;
+
     this.tables.push({
       name: this.form.get('title').value,
       showInput: false,
@@ -75,8 +86,20 @@ export class TableComponent implements OnInit {
 
     this.board.tables = this.tables;
 
-    this._store.dispatch(new BoardActions.SetSelected(this.board));
+    this._updateBoard$.next(this.board);
     this.showInput = false;
+  }
+
+  onDeleteList(idx: number): void {
+    this._ms.confirm({
+      nzTitle: 'Delete List',
+      nzContent: 'Confirm delete action',
+      nzOnOk: () => {
+        this.tables.splice(idx);
+        this.board.tables = this.tables;
+        this._updateBoard$.next(this.board);
+      }
+    });
   }
 
   /*
@@ -95,7 +118,7 @@ export class TableComponent implements OnInit {
 
         t.showInput = true;
       }
-    )
+    );
   }
 
   onAddCard(table: Table): void {
@@ -104,7 +127,7 @@ export class TableComponent implements OnInit {
       color: 'blue',
       tag: [],
       comment: ''
-    })
+    });
 
     table.showInput = false;
   }
@@ -112,6 +135,6 @@ export class TableComponent implements OnInit {
   private _createForm(title?: string): FormGroup {
     return this._fb.group({
       'title': new FormControl(title, Validators.required)
-    })
+    });
   }
 }
